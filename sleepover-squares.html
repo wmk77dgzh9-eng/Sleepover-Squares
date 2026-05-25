@@ -1,0 +1,783 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sleepover Squares – The Cereal That Dreams With You</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Fredoka+One&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --sky: #b8d9f7;
+    --mid: #5b7ec9;
+    --deep: #3a5aa8;
+    --night: #1a2a6c;
+    --purple: #7b5ea7;
+    --lavender: #c8b3e8;
+    --gold: #f5d06a;
+    --cream: #fffdf5;
+    --white: #ffffff;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Nunito', sans-serif;
+    background: var(--sky);
+    color: var(--deep);
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 16px 48px;
+    background: rgba(184, 217, 247, 0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 2px solid rgba(91, 126, 201, 0.25);
+  }
+  .nav-logo {
+    font-family: 'Fredoka One', cursive;
+    font-size: 1.5rem;
+    color: var(--deep);
+    text-decoration: none;
+    letter-spacing: 1px;
+  }
+  .nav-links { display: flex; gap: 32px; list-style: none; }
+  .nav-links a {
+    text-decoration: none;
+    font-weight: 700;
+    color: var(--mid);
+    font-size: 0.95rem;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--deep); }
+  .nav-cta {
+    background: var(--deep);
+    color: var(--white) !important;
+    padding: 8px 20px;
+    border-radius: 100px;
+    transition: background 0.2s, transform 0.2s !important;
+  }
+  .nav-cta:hover { background: var(--night) !important; transform: scale(1.04); }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    text-align: center;
+    padding: 120px 24px 80px;
+    position: relative;
+    overflow: hidden;
+    background: radial-gradient(ellipse at 60% 40%, #d4e9ff 0%, var(--sky) 60%);
+  }
+  .hero-blobs { position: absolute; inset: 0; pointer-events: none; }
+  .blob {
+    position: absolute;
+    border-radius: 50% 40% 60% 50% / 60% 50% 40% 50%;
+    opacity: 0.45;
+  }
+  .blob-1 { width: 420px; height: 320px; background: var(--mid); top: -60px; left: -100px; animation: float1 8s ease-in-out infinite; }
+  .blob-2 { width: 300px; height: 260px; background: var(--deep); bottom: -40px; right: -60px; animation: float2 10s ease-in-out infinite; }
+  .blob-3 { width: 200px; height: 180px; background: var(--lavender); top: 30%; right: 10%; animation: float1 12s ease-in-out infinite reverse; opacity: 0.3; }
+  .blob-4 { width: 150px; height: 130px; background: var(--mid); bottom: 20%; left: 8%; animation: float2 9s ease-in-out infinite; opacity: 0.3; }
+
+  @keyframes float1 { 0%,100%{transform:translate(0,0) rotate(0deg)} 50%{transform:translate(20px,-30px) rotate(6deg)} }
+  @keyframes float2 { 0%,100%{transform:translate(0,0) rotate(0deg)} 50%{transform:translate(-15px,20px) rotate(-4deg)} }
+
+  .stars-bg { position: absolute; inset: 0; pointer-events: none; }
+  .star { position: absolute; background: var(--deep); border-radius: 50%; opacity: 0.18; animation: twinkle 3s ease-in-out infinite; }
+  @keyframes twinkle { 0%,100%{opacity:0.1} 50%{opacity:0.35} }
+
+  .hero-eyebrow {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(91,126,201,0.15);
+    border: 2px solid var(--mid);
+    border-radius: 100px;
+    padding: 6px 20px;
+    font-size: 0.85rem; font-weight: 800;
+    color: var(--deep);
+    letter-spacing: 2px; text-transform: uppercase;
+    margin-bottom: 24px;
+    animation: fadeUp 0.7s ease both;
+  }
+  .hero-title {
+    font-family: 'Fredoka One', cursive;
+    font-size: clamp(3.5rem, 10vw, 7rem);
+    color: var(--deep);
+    line-height: 1.0;
+    letter-spacing: 2px;
+    animation: fadeUp 0.8s 0.1s ease both;
+    position: relative; z-index: 1;
+  }
+  .hero-title span { color: var(--purple); }
+  .hero-sub {
+    font-size: clamp(1.1rem, 2.5vw, 1.4rem);
+    color: var(--mid);
+    font-weight: 700;
+    margin: 20px 0 36px;
+    animation: fadeUp 0.8s 0.2s ease both;
+  }
+  .hero-price {
+    font-family: 'Fredoka One', cursive;
+    font-size: 2.2rem;
+    color: var(--purple);
+    background: white;
+    border-radius: 20px;
+    padding: 6px 28px;
+    display: inline-block;
+    box-shadow: 0 4px 20px rgba(91,126,201,0.2);
+    margin-bottom: 36px;
+    animation: fadeUp 0.8s 0.25s ease both;
+  }
+  .hero-buttons {
+    display: flex; gap: 16px; flex-wrap: wrap; justify-content: center;
+    animation: fadeUp 0.8s 0.3s ease both;
+  }
+  .btn {
+    font-family: 'Nunito', sans-serif;
+    font-weight: 800; font-size: 1rem;
+    padding: 14px 36px;
+    border-radius: 100px;
+    cursor: pointer; text-decoration: none;
+    transition: transform 0.2s, box-shadow 0.2s;
+    display: inline-block;
+  }
+  .btn:hover { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(58,90,168,0.25); }
+  .btn-primary { background: var(--deep); color: white; }
+  .btn-secondary { background: white; color: var(--deep); border: 2px solid var(--deep); }
+  .hero-badge {
+    display: flex; gap: 24px; margin-top: 48px; flex-wrap: wrap; justify-content: center;
+    animation: fadeUp 0.8s 0.4s ease both;
+  }
+  .badge {
+    background: white; border-radius: 16px;
+    padding: 10px 20px;
+    font-weight: 800; font-size: 0.85rem; color: var(--deep);
+    box-shadow: 0 2px 12px rgba(91,126,201,0.15);
+    display: flex; align-items: center; gap: 8px;
+  }
+  .badge-icon { font-size: 1.2rem; }
+
+  @keyframes fadeUp { from{opacity:0;transform:translateY(24px)} to{opacity:1;transform:translateY(0)} }
+
+  /* ── SECTIONS ── */
+  section { padding: 100px 24px; }
+
+  .section-title {
+    font-family: 'Fredoka One', cursive;
+    font-size: clamp(2rem, 5vw, 3.2rem);
+    color: var(--deep);
+    text-align: center;
+    margin-bottom: 16px;
+  }
+  .section-sub {
+    text-align: center;
+    color: var(--mid);
+    font-weight: 600;
+    font-size: 1.05rem;
+    max-width: 560px;
+    margin: 0 auto 60px;
+    line-height: 1.6;
+  }
+  .container { max-width: 1100px; margin: 0 auto; }
+
+  /* ── ABOUT ── */
+  .about { background: white; }
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px; align-items: center;
+  }
+  .about-visual {
+    background: linear-gradient(135deg, #1a2a6c 0%, #7b5ea7 100%);
+    border-radius: 32px;
+    padding: 48px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 20px 60px rgba(26,42,108,0.25);
+  }
+  .about-visual::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: radial-gradient(circle at 30% 30%, rgba(245,208,106,0.15), transparent 60%);
+  }
+  .cereal-emoji { font-size: 5rem; display: block; margin-bottom: 16px; position: relative; z-index: 1; }
+  .about-visual-text {
+    font-family: 'Fredoka One', cursive;
+    font-size: 1.8rem;
+    color: white;
+    position: relative; z-index: 1;
+    line-height: 1.2;
+  }
+  .about-visual-text span { color: var(--gold); }
+  .about-content h2 {
+    font-family: 'Fredoka One', cursive;
+    font-size: 2.2rem;
+    color: var(--deep);
+    margin-bottom: 20px;
+  }
+  .about-content p {
+    color: #4a5568;
+    line-height: 1.8;
+    font-size: 1.05rem;
+    margin-bottom: 28px;
+  }
+  .about-stats { display: flex; gap: 24px; }
+  .stat {
+    text-align: center;
+    background: var(--sky);
+    border-radius: 16px;
+    padding: 16px 24px;
+    flex: 1;
+  }
+  .stat-num {
+    font-family: 'Fredoka One', cursive;
+    font-size: 1.8rem;
+    color: var(--deep);
+  }
+  .stat-label { font-size: 0.8rem; font-weight: 700; color: var(--mid); text-transform: uppercase; letter-spacing: 1px; }
+
+  /* ── FEATURES ── */
+  .features { background: var(--sky); }
+  .features-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+  .feature-card {
+    background: white;
+    border-radius: 24px;
+    padding: 36px 28px;
+    box-shadow: 0 4px 24px rgba(91,126,201,0.1);
+    transition: transform 0.25s, box-shadow 0.25s;
+    position: relative;
+    overflow: hidden;
+  }
+  .feature-card::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, var(--mid), var(--purple));
+  }
+  .feature-card:hover { transform: translateY(-8px); box-shadow: 0 16px 48px rgba(91,126,201,0.2); }
+  .feature-icon { font-size: 2.8rem; margin-bottom: 16px; display: block; }
+  .feature-card h3 {
+    font-family: 'Fredoka One', cursive;
+    font-size: 1.3rem;
+    color: var(--deep);
+    margin-bottom: 12px;
+  }
+  .feature-card p { color: #4a5568; line-height: 1.7; font-size: 0.95rem; }
+
+  /* ── PROMOTIONS ── */
+  .promotions {
+    background: linear-gradient(160deg, var(--night) 0%, var(--purple) 100%);
+    position: relative; overflow: hidden;
+  }
+  .promotions .section-title { color: var(--gold); }
+  .promotions .section-sub { color: rgba(255,255,255,0.7); }
+  .promo-stars { position: absolute; inset: 0; pointer-events: none; }
+  .promo-star {
+    position: absolute;
+    color: var(--gold);
+    font-size: 1rem;
+    opacity: 0.3;
+    animation: twinkle 4s ease-in-out infinite;
+  }
+  .charms-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    margin-bottom: 48px;
+  }
+  .charm-card {
+    background: rgba(255,255,255,0.1);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 20px;
+    padding: 24px 16px;
+    text-align: center;
+    transition: transform 0.2s, background 0.2s;
+  }
+  .charm-card:hover { transform: scale(1.06); background: rgba(255,255,255,0.18); }
+  .charm-icon { font-size: 2.4rem; display: block; margin-bottom: 10px; }
+  .charm-name { color: white; font-weight: 700; font-size: 0.9rem; }
+  .promo-note {
+    text-align: center;
+    color: rgba(255,255,255,0.8);
+    font-size: 1rem;
+    font-weight: 600;
+    background: rgba(255,255,255,0.08);
+    border-radius: 16px;
+    padding: 20px 32px;
+    max-width: 620px;
+    margin: 0 auto;
+    line-height: 1.7;
+  }
+
+  /* ── EXTENSIONS ── */
+  .extensions { background: white; }
+  .ext-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 28px;
+  }
+  .ext-card {
+    border: 2px solid var(--sky);
+    border-radius: 24px;
+    padding: 36px 28px;
+    text-align: center;
+    transition: border-color 0.2s, transform 0.2s;
+  }
+  .ext-card:hover { border-color: var(--mid); transform: translateY(-6px); }
+  .ext-icon { font-size: 3rem; display: block; margin-bottom: 16px; }
+  .ext-card h3 {
+    font-family: 'Fredoka One', cursive;
+    color: var(--deep);
+    font-size: 1.25rem;
+    margin-bottom: 12px;
+  }
+  .ext-card p { color: #4a5568; line-height: 1.7; font-size: 0.93rem; }
+
+  /* ── TARGET ── */
+  .target { background: var(--sky); }
+  .target-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
+  .target-col {
+    background: white;
+    border-radius: 24px;
+    padding: 36px;
+    box-shadow: 0 4px 24px rgba(91,126,201,0.08);
+  }
+  .target-col h3 {
+    font-family: 'Fredoka One', cursive;
+    font-size: 1.4rem;
+    color: var(--deep);
+    margin-bottom: 24px;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .target-list { list-style: none; display: flex; flex-direction: column; gap: 14px; }
+  .target-list li {
+    display: flex; align-items: flex-start; gap: 12px;
+    font-size: 0.95rem; color: #4a5568; line-height: 1.6;
+  }
+  .target-list li::before {
+    content: '★';
+    color: var(--mid);
+    font-size: 0.85rem;
+    flex-shrink: 0;
+    margin-top: 3px;
+  }
+
+  /* ── POSITIONING ── */
+  .positioning {
+    background: linear-gradient(135deg, #1a2a6c 0%, #3a5aa8 100%);
+  }
+  .positioning .section-title { color: white; }
+  .positioning .section-sub { color: rgba(255,255,255,0.7); }
+  .pos-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; margin-bottom: 40px; }
+  .pos-card {
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 20px;
+    padding: 28px;
+  }
+  .pos-card h4 {
+    font-family: 'Fredoka One', cursive;
+    color: var(--gold);
+    font-size: 1.15rem;
+    margin-bottom: 12px;
+  }
+  .pos-card p { color: rgba(255,255,255,0.8); font-size: 0.95rem; line-height: 1.7; font-style: italic; }
+  .pos-diff {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+  .pos-diff-item {
+    background: rgba(255,255,255,0.06);
+    border-left: 3px solid var(--gold);
+    border-radius: 0 12px 12px 0;
+    padding: 16px 20px;
+    font-size: 0.93rem;
+    color: rgba(255,255,255,0.85);
+    line-height: 1.6;
+  }
+
+  /* ── BUY ── */
+  .buy {
+    background: white;
+    text-align: center;
+  }
+  .buy-card {
+    max-width: 520px; margin: 0 auto;
+    background: linear-gradient(135deg, var(--sky) 0%, #d4e9ff 100%);
+    border-radius: 32px;
+    padding: 60px 48px;
+    box-shadow: 0 20px 60px rgba(91,126,201,0.15);
+  }
+  .buy-price {
+    font-family: 'Fredoka One', cursive;
+    font-size: 4rem;
+    color: var(--deep);
+    margin-bottom: 8px;
+  }
+  .buy-unit { color: var(--mid); font-weight: 700; margin-bottom: 28px; font-size: 1rem; }
+  .buy-perks { list-style: none; text-align: left; margin-bottom: 36px; display: flex; flex-direction: column; gap: 12px; }
+  .buy-perks li { display: flex; align-items: center; gap: 12px; font-weight: 600; color: var(--deep); }
+  .buy-perks li::before { content: '✓'; color: var(--mid); font-weight: 900; font-size: 1.1rem; }
+  .retailers { margin-top: 32px; color: var(--mid); font-size: 0.9rem; font-weight: 600; }
+  .retailer-list { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin-top: 12px; }
+  .retailer-tag {
+    background: white;
+    border-radius: 100px;
+    padding: 6px 16px;
+    font-size: 0.82rem; font-weight: 700;
+    color: var(--deep);
+    border: 2px solid var(--mid);
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--night);
+    color: rgba(255,255,255,0.7);
+    text-align: center;
+    padding: 48px 24px;
+  }
+  .footer-logo {
+    font-family: 'Fredoka One', cursive;
+    font-size: 2rem;
+    color: white;
+    margin-bottom: 8px;
+  }
+  .footer-slogan {
+    font-style: italic;
+    color: var(--gold);
+    font-weight: 600;
+    margin-bottom: 32px;
+    font-size: 1rem;
+  }
+  .footer-taglines { display: flex; gap: 24px; justify-content: center; flex-wrap: wrap; margin-bottom: 32px; }
+  .footer-taglines span { font-weight: 800; color: rgba(255,255,255,0.5); font-size: 0.9rem; }
+  .footer-copy { font-size: 0.82rem; color: rgba(255,255,255,0.35); }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 768px) {
+    nav { padding: 14px 20px; }
+    .nav-links { display: none; }
+    .about-grid,
+    .target-cols,
+    .pos-cards,
+    .pos-diff { grid-template-columns: 1fr; }
+    .features-grid,
+    .ext-grid,
+    .charms-grid { grid-template-columns: repeat(2, 1fr); }
+    .about-stats { gap: 12px; }
+    .buy-card { padding: 40px 28px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">🌙 Sleepover Squares</a>
+  <ul class="nav-links">
+    <li><a href="#features">Features</a></li>
+    <li><a href="#promotions">Collectibles</a></li>
+    <li><a href="#extensions">Extensions</a></li>
+    <li><a href="#buy" class="nav-cta">Buy Now</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-blobs">
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+    <div class="blob blob-3"></div>
+    <div class="blob blob-4"></div>
+  </div>
+  <div class="stars-bg" id="starsHero"></div>
+
+  <div class="hero-eyebrow">✨ New! Sweet Vanilla & Honey Flavour</div>
+  <h1 class="hero-title">Sleepover<br><span>Squares</span></h1>
+  <p class="hero-sub">The Cereal That Dreams With You</p>
+  <div class="hero-price">$8.99 CAD</div>
+  <div class="hero-buttons">
+    <a href="#buy" class="btn btn-primary">Shop Now</a>
+    <a href="#features" class="btn btn-secondary">Discover the Magic</a>
+  </div>
+  <div class="hero-badge">
+    <div class="badge"><span class="badge-icon">🌾</span> Whole Grain</div>
+    <div class="badge"><span class="badge-icon">💙</span> Low Sugar</div>
+    <div class="badge"><span class="badge-icon">🎨</span> No Artificial Colours</div>
+    <div class="badge"><span class="badge-icon">⭐</span> 7g Sugar</div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="about" id="about">
+  <div class="container">
+    <div class="about-grid">
+      <div class="about-visual">
+        <span class="cereal-emoji">🥣✨</span>
+        <div class="about-visual-text">Breakfast<br>After <span>Dark.</span><br>Pillows Required.</div>
+      </div>
+      <div class="about-content">
+        <h2>More Than Breakfast.<br>It's a Morning Ritual.</h2>
+        <p>Sleepover Squares turns the most ordinary part of your day into something magical. A sweet vanilla & honey flavour packed with whole grains and just enough fun to make every morning feel like the start of an adventure.</p>
+        <p>Designed for dreamers aged 5–12, and approved by parents who want nutrition without the sugar overload. Because good mornings deserve a little enchantment.</p>
+        <div class="about-stats">
+          <div class="stat">
+            <div class="stat-num">7g</div>
+            <div class="stat-label">Sugar</div>
+          </div>
+          <div class="stat">
+            <div class="stat-num">14oz</div>
+            <div class="stat-label">Net Weight</div>
+          </div>
+          <div class="stat">
+            <div class="stat-num">16</div>
+            <div class="stat-label">Collectibles</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section class="features" id="features">
+  <div class="container">
+    <h2 class="section-title">Packed with Surprises</h2>
+    <p class="section-sub">Six magical features that make Sleepover Squares unlike any cereal you've ever opened.</p>
+    <div class="features-grid">
+      <div class="feature-card">
+        <span class="feature-icon">🌟</span>
+        <h3>Glow-in-the-Dark Box</h3>
+        <p>Matte packaging with fuzzy-touch spot varnish over pillow illustrations. Moon and star graphics glow in the dark — the only cereal box that comes alive at night.</p>
+      </div>
+      <div class="feature-card">
+        <span class="feature-icon">🔮</span>
+        <h3>Fortune Pillows</h3>
+        <p>Tear off one of five dream fortunes along the back panel each morning. Fortunes rotate every month, so there's always something new to look forward to.</p>
+      </div>
+      <div class="feature-card">
+        <span class="feature-icon">🚪</span>
+        <h3>Do Not Disturb Hanger</h3>
+        <p>A cut-out door hanger on the side panel, ready to hang on any bedroom door. A brand-new design drops every single month.</p>
+      </div>
+      <div class="feature-card">
+        <span class="feature-icon">🌌</span>
+        <h3>Hidden Constellation Map</h3>
+        <p>A secret constellation map printed on the inside lid. Hold it under a lamp, turn off the lights, and watch the stars glow back at you.</p>
+      </div>
+      <div class="feature-card">
+        <span class="feature-icon">🥛</span>
+        <h3>Magic Milk</h3>
+        <p>Pour in milk and watch it turn soft lavender, thanks to natural butterfly pea flower extract. Squeeze in a little lemon and it shifts to pink — a mini science experiment in your bowl.</p>
+      </div>
+      <div class="feature-card">
+        <span class="feature-icon">📱</span>
+        <h3>Dream Catcher App</h3>
+        <p>Scan the QR code to unlock the free app. Record your dreams, collect virtual Slumber Buddies, and join monthly group events where kids nationwide build one giant dream story together.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROMOTIONS -->
+<section class="promotions" id="promotions">
+  <div class="promo-stars" id="promoStars"></div>
+  <div class="container" style="position:relative;z-index:1;">
+    <h2 class="section-title">Slumber Buddies</h2>
+    <p class="section-sub">16 collectible 1-inch plush keychain charms hidden inside every box in a crinkle "Pillow Pack" — new series every season!</p>
+    <div class="charms-grid">
+      <div class="charm-card"><span class="charm-icon">😴</span><div class="charm-name">Eye Mask</div></div>
+      <div class="charm-card"><span class="charm-icon">🧦</span><div class="charm-name">Fuzzy Sock</div></div>
+      <div class="charm-card"><span class="charm-icon">🍿</span><div class="charm-name">Popcorn Bucket</div></div>
+      <div class="charm-card"><span class="charm-icon">🛌</span><div class="charm-name">Sleeping Bag Roll</div></div>
+      <div class="charm-card"><span class="charm-icon">🌙</span><div class="charm-name">Midnight Snack</div></div>
+      <div class="charm-card"><span class="charm-icon">🔦</span><div class="charm-name">Flashlight</div></div>
+      <div class="charm-card"><span class="charm-icon">🧸</span><div class="charm-name">Teddy Bear</div></div>
+      <div class="charm-card"><span class="charm-icon">📓</span><div class="charm-name">Dream Journal</div></div>
+    </div>
+    <div class="promo-note">Hidden inside the cereal bag in a soft "Pillow Pack" crinkle packaging kids love to squeeze. New series released seasonally to encourage ongoing collection.</div>
+  </div>
+</section>
+
+<!-- EXTENSIONS -->
+<section class="extensions" id="extensions">
+  <div class="container">
+    <h2 class="section-title">The Sleepover Universe</h2>
+    <p class="section-sub">Sleepover Squares is just the beginning. A whole world of products is coming to make every sleepover legendary.</p>
+    <div class="ext-grid">
+      <div class="ext-card">
+        <span class="ext-icon">🏰</span>
+        <h3>Fort Kit</h3>
+        <p>The box itself transforms into cereal-box fort walls with included tape strips. Build your fortress one box at a time.</p>
+      </div>
+      <div class="ext-card">
+        <span class="ext-icon">🎮</span>
+        <h3>Dream or Dare</h3>
+        <p>The official party game — scan any box to unlock it free! Gather 2–6 players and choose from trivia, dares, dream stories, and squad challenges. Crown a Dream Champion.</p>
+      </div>
+      <div class="ext-card">
+        <span class="ext-icon">🌟</span>
+        <h3>Slumber Kit</h3>
+        <p>Midnight purple pyjama pants with gold star & pillow print, a matching sleep mask with the embroidered logo, and fuzzy lavender socks with "Dream Drop" marshmallow icons.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TARGET MARKET -->
+<section class="target" id="target">
+  <div class="container">
+    <h2 class="section-title">Made for Dreamers Everywhere</h2>
+    <p class="section-sub">Available across Canada and the USA, wherever families shop.</p>
+    <div class="target-cols">
+      <div class="target-col">
+        <h3>👶 For Kids</h3>
+        <ul class="target-list">
+          <li>Ages 5–12, all genders — the sleepover theme is universally beloved</li>
+          <li>Imaginative, playful, love surprises and collectibles</li>
+          <li>Fans of sleepovers, movies, crafts, pillow fights, and flashlights</li>
+          <li>Enjoy feeling like they have a world that belongs to them</li>
+        </ul>
+      </div>
+      <div class="target-col">
+        <h3>👪 For Parents</h3>
+        <ul class="target-list">
+          <li>Health-conscious but not restrictive — fun without the guilt</li>
+          <li>Value educational moments built into everyday routines</li>
+          <li>Appreciate the science in the Magic Milk colour change</li>
+          <li>Love products that spark family conversation and creativity</li>
+        </ul>
+      </div>
+    </div>
+    <div style="margin-top:32px;text-align:center;">
+      <p style="color:var(--mid);font-weight:700;margin-bottom:16px;">Available at</p>
+      <div class="retailer-list">
+        <span class="retailer-tag">Loblaws</span>
+        <span class="retailer-tag">Walmart</span>
+        <span class="retailer-tag">Sobeys</span>
+        <span class="retailer-tag">Costco</span>
+        <span class="retailer-tag">Amazon</span>
+        <span class="retailer-tag">Convenience Stores</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- POSITIONING -->
+<section class="positioning" id="positioning">
+  <div class="container">
+    <h2 class="section-title">Not Just Cereal. A Feeling.</h2>
+    <p class="section-sub">Sleepover Squares owns the emotional territory of warmth, imagination, and childhood wonder — no other brand comes close.</p>
+    <div class="pos-cards">
+      <div class="pos-card">
+        <h4>For Children</h4>
+        <p>"This cereal is magic. It's mine. It's a whole world, not just food."</p>
+      </div>
+      <div class="pos-card">
+        <h4>For Parents</h4>
+        <p>"This is a smarter breakfast choice. Fun without the guilt — and it actually sparks creativity."</p>
+      </div>
+    </div>
+    <div class="pos-diff">
+      <div class="pos-diff-item">Magic Milk colour-change is a science-based hook no cereal on the market can match.</div>
+      <div class="pos-diff-item">Slumber Buddies plush keychains are far higher-perceived-value than typical sticker inserts.</div>
+      <div class="pos-diff-item">The Dream Catcher app extends the brand beyond the breakfast table — rare in the cereal category.</div>
+      <div class="pos-diff-item">Glow-in-the-dark packaging and fuzzy-touch varnish make the box itself a sensory experience.</div>
+    </div>
+  </div>
+</section>
+
+<!-- BUY -->
+<section class="buy" id="buy">
+  <div class="container">
+    <h2 class="section-title">Start Dreaming Today</h2>
+    <p class="section-sub">Pick up a box and turn tomorrow morning into something magical.</p>
+    <div class="buy-card">
+      <div class="buy-price">$8.99</div>
+      <div class="buy-unit">CAD · 14 oz (396g) · Sweet Vanilla & Honey</div>
+      <ul class="buy-perks">
+        <li>Whole grain, low sugar, no artificial colours</li>
+        <li>Includes 1 Slumber Buddies keychain charm</li>
+        <li>Glow-in-the-dark box with Fortune Pillow strips</li>
+        <li>QR code to unlock the free Dream Catcher app</li>
+        <li>Hidden constellation map inside lid</li>
+      </ul>
+      <a href="#" class="btn btn-primary" style="width:100%;text-align:center;font-size:1.1rem;padding:18px;">Find a Store Near You →</a>
+      <div class="retailers">
+        <div>Available at:</div>
+        <div class="retailer-list">
+          <span class="retailer-tag">Loblaws</span>
+          <span class="retailer-tag">Walmart</span>
+          <span class="retailer-tag">Sobeys</span>
+          <span class="retailer-tag">Costco</span>
+          <span class="retailer-tag">Amazon</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">🌙 Sleepover Squares</div>
+  <div class="footer-slogan">The Cereal That Dreams With You</div>
+  <div class="footer-taglines">
+    <span>★ Breakfast After Dark</span>
+    <span>★ Pyjamas Optional</span>
+    <span>★ Pillows Required</span>
+  </div>
+  <div class="footer-copy">Presented by Harlen & Taylor · © 2025 Sleepover Squares · Canada & USA</div>
+</footer>
+
+<script>
+  // Scatter stars in hero
+  const starsContainer = document.getElementById('starsHero');
+  for (let i = 0; i < 30; i++) {
+    const s = document.createElement('div');
+    s.className = 'star';
+    const size = Math.random() * 6 + 2;
+    s.style.cssText = `width:${size}px;height:${size}px;top:${Math.random()*100}%;left:${Math.random()*100}%;animation-delay:${Math.random()*4}s;animation-duration:${2+Math.random()*3}s`;
+    starsContainer.appendChild(s);
+  }
+
+  // Scatter gold stars in promo
+  const promoContainer = document.getElementById('promoStars');
+  for (let i = 0; i < 40; i++) {
+    const s = document.createElement('div');
+    s.className = 'promo-star';
+    s.textContent = Math.random() > 0.5 ? '★' : '✦';
+    s.style.cssText = `top:${Math.random()*100}%;left:${Math.random()*100}%;animation-delay:${Math.random()*5}s;animation-duration:${3+Math.random()*4}s;font-size:${0.6+Math.random()*1.2}rem`;
+    promoContainer.appendChild(s);
+  }
+
+  // Scroll-triggered fade-in
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.style.opacity = '1';
+        e.target.style.transform = 'translateY(0)';
+      }
+    });
+  }, { threshold: 0.12 });
+
+  document.querySelectorAll('.feature-card, .charm-card, .ext-card, .target-col, .pos-card, .pos-diff-item, .stat').forEach(el => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(28px)';
+    el.style.transition = 'opacity 0.55s ease, transform 0.55s ease';
+    observer.observe(el);
+  });
+</script>
+</body>
+</html>
